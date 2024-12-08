@@ -24,7 +24,7 @@ body {
 .slider {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100vw; /* Make it square */
   overflow: hidden;
 }
 
@@ -57,52 +57,6 @@ body {
   background: url("https://i.pinimg.com/236x/26/28/6d/26286d109515a904cca738022de8a8cf.jpg") no-repeat
     center top/cover;
 }
-
-
-.buttons button#prev {
-  position: absolute;
-  top: 50%;
-  left: 1rem;
-}
-
-.buttons button#next {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-}
-
-.buttons button {
-  border: 2px solid #e5ebf3;
-  background-color: transparent;
-  color: #e5ebf3;
-  cursor: pointer;
-  padding: 13px 15px;
-  border-radius: 50%;
-  outline: none;
-}
-
-.buttons button:hover {
-  background-color: #e5ebf3;
-  color: #362a2b;
-}
-
-@media (min-width: 640px) and (min-height: 640px) {
-  .slide .content {
-    bottom: 70px;
-    left: -600px;
-    width: 600px;
-    padding: 2rem;
-    line-height: 1.6;
-  }
-
-  .slide .content h1 {
-    font-size: 2rem;
-  }
-
-  .slide.current .content {
-    transform: translateX(600px);
-  }
-}
 </style>
 </head>
 
@@ -114,15 +68,9 @@ body {
     <div class="slide"></div>
 
   </div>
-  <div class="buttons">
-    <button id="prev"><i class="fas fa-arrow-left"></i></button>
-    <button id="next"><i class="fas fa-arrow-right"></i></button>
-  </div>
   <!-- partial -->
   <script>
     const slides = document.querySelectorAll(".slide");
-    const nextButton = document.getElementById("next");
-    const prevButton = document.getElementById("prev");
     const auto = true;
     const intervalTime = 5000;
     let slideInterval;
@@ -136,31 +84,6 @@ body {
         slides[0].classList.add("current");
       }
     };
-
-    const prevSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      if (current.previousElementSibling) {
-        current.previousElementSibling.classList.add("current");
-      } else {
-        slides[slides.length - 1].classList.add("current");
-      }
-    };
-
-    nextButton.addEventListener("click", () => {
-      nextSlide();
-      if (auto) {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-      }
-    });
-    prevButton.addEventListener("click", () => {
-      prevSlide();
-      if (auto) {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-      }
-    });
 
     if (auto) {
       slideInterval = setInterval(nextSlide, intervalTime);
